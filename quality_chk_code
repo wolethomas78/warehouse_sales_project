@@ -1,0 +1,142 @@
+
+-- ===========================================================================
+-- SILVER LAYER DATA QUALITY CHECKS
+-- Purpose:
+--   Validate and standardize data in silver_wh_sales before promoting
+--   it to the gold layer. Checks include:
+--   - Null values
+--   - Whitespace trimming
+--   - Duplicates
+--   - Standardization (capitalization, handling missing values)
+-- ===========================================================================
+
+-- =========================
+-- YEAR & MONTH VALIDATION
+-- =========================
+-- Check distinct year values (should not contain NULLs)
+SELECT DISTINCT year 
+FROM silver_wh_sales
+WHERE year IS NULL;
+
+-- Check distinct month values (should be between 1 and 12)
+SELECT DISTINCT month 
+FROM silver_wh_sales
+ORDER BY month;
+
+-- Verify month number conversion to month name
+SELECT 
+    month,
+    TO_CHAR(TO_DATE(month::text, 'MM'), 'Mon') AS month_name
+FROM silver_wh_sales;
+
+-- =========================
+-- SUPPLIER VALIDATION
+-- =========================
+-- Detect supplier values with leading/trailing spaces
+SELECT supplier 
+FROM silver_wh_sales
+WHERE supplier <> TRIM(supplier);
+
+-- Preview standardized supplier names
+SELECT INITCAP(supplier) AS standardized_supplier
+FROM silver_wh_sales;
+
+-- =========================
+-- ITEMCODE VALIDATION
+-- =========================
+-- Detect item codes with leading/trailing spaces
+SELECT itemcode 
+FROM silver_wh_sales
+WHERE itemcode <> TRIM(itemcode);
+
+-- Find duplicate item codes
+SELECT 
+    itemcode,
+    COUNT(*) AS occurrences
+FROM silver_wh_sales
+GROUP BY itemcode
+HAVING COUNT(*) > 1
+ORDER BY occurrences DESC;
+
+-- =========================
+-- ITEM DESCRIPTION VALIDATION
+-- =========================
+-- Preview standardized item descriptions
+SELECT INITCAP(item_description) AS standardized_description
+FROM silver_wh_sales;
+
+-- Detect item descriptions with extra spaces
+SELECT item_description
+FROM silver_wh_sales
+WHERE item_description <> TRIM(item_description);
+
+-- =========================
+-- ITEM TYPE VALIDATION
+-- =========================
+-- Detect item_type values with extra spaces
+SELECT item_type 
+FROM silver_wh_sales
+WHERE item_type <> TRIM(item_type);
+
+-- Find NULL item_type values
+SELECT *
+FROM silver_wh_sales
+WHERE item_type IS NULL;
+
+-- Distribution of item types (including NULLs)
+SELECT 
+    COALESCE(item_type, 'unknown') AS item_type,
+    COUNT(*) AS occurrences
+FROM silver_wh_sales
+GROUP BY COALESCE(item_type, 'unknown')
+ORDER BY occurrences DESC;
+
+-- Example of standardization
+SELECT 
+    itemcode,
+    INITCAP(COALESCE(item_type, 'unknown')) AS standardized_item_type
+FROM silver_wh_sales
+WHERE itemcode = '347939';
+
+-- =========================
+-- RETAIL SALES VALIDATION
+-- =========================
+-- Count rows with NULL retail_sales
+SELECT COUNT(*) AS null_retail_sales
+FROM silver_wh_sales
+WHERE retail_sales IS NULL;
+
+-- Count rows with retail_sales <= 0
+SELECT COUNT(*) AS non_positive_retail_sales
+FROM silver_wh_sales
+WHERE retail_sales <= 0;
+
+-- Preview replacement of NULL with 0
+SELECT COALESCE(retail_sales, 0) AS standardized_retail_sales
+FROM silver_wh_sales;
+
+-- =========================
+-- RETAIL TRANSFER VALIDATION
+-- =========================
+-- Count rows with NULL retail_transfer
+SELECT COUNT(*) AS null_retail_transfer
+FROM silver_wh_sales
+WHERE retail_transfer IS NULL;
+
+-- Count rows with retail_transfer <= 0
+SELECT COUNT(*) AS non_positive_retail_transfer
+FROM silver_wh_sales
+WHERE retail_transfer <= 0;
+
+-- =========================
+-- WAREHOUSE SALES VALIDATION
+-- =========================
+-- Count rows with NULL warehouse_sales
+SELECT COUNT(*) AS null_warehouse_sales
+FROM silver_wh_sales
+WHERE warehouse_sales IS NULL;
+
+-- Count rows with warehouse_sales <= 0
+SELECT COUNT(*) AS non_positive_warehouse_sales
+FROM silver_wh_sales
+WHERE warehouse_sales <= 0;
