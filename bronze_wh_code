@@ -1,89 +1,115 @@
 
+-- ===========================================================================
+-- Script: Bronze Layer Table and Load Procedure
+-- Purpose: 
+--   1. Create the bronze_wh_sales table (raw staging layer).
+--   2. Load raw CSV data into bronze_wh_sales using a stored procedure.
+--   3. Capture load time, row count, and handle errors.
+--
+-- ===========================================================================
+
+-- Drop the table if it exists, to ensure a fresh definition
 DROP TABLE bronze_wh_sales;
-CREATE TABLE IF NOT EXISTS bronze_wh_sales(
-year INT,
-month INT,
-supplier VARCHAR (100),
-itemcode VARCHAR (100),
-item_description VARCHAR (100),
-item_type VARCHAR (100),
-retail_sales FLOAT,
-retail_transfer FLOAT,
-warehouse_sales FLOAT
+
+-- Create the bronze layer table to hold raw data from CSV
+CREATE TABLE IF NOT EXISTS bronze_wh_sales (
+    year INT,                          -- Year of the record
+    month INT,                         -- Month of the record
+    supplier VARCHAR(100),             -- Supplier name
+    itemcode VARCHAR(100),             -- Unique item code
+    item_description VARCHAR(100),     -- Description of the item
+    item_type VARCHAR(100),            -- Type or category of the item
+    retail_sales FLOAT,                -- Retail sales value
+    retail_transfer FLOAT,             -- Retail transfer value
+    warehouse_sales FLOAT              -- Warehouse sales value
 );
 
+-- ===========================================================================
+-- Procedure: bronze_wh_sales()
+-- Purpose: 
+--   1. Clear existing records in bronze_wh_sales.
+--   2. Load raw CSV file into the table.
+--   3. Measure execution time and row count.
+--   4. Handle errors gracefully.
+-- ===========================================================================
 
 CREATE OR REPLACE PROCEDURE bronze_wh_sales()
 LANGUAGE plpgsql
 AS $$
 DECLARE 
-		start_time TIMESTAMP;
-		end_time TIMESTAMP;
-		duration INTERVAL;
-		row_count BIGINT;
+    start_time TIMESTAMP;   -- Track procedure start time
+    end_time TIMESTAMP;     -- Track procedure end time
+    duration INTERVAL;      -- Execution duration
+    row_count BIGINT;       -- Number of rows loaded
 BEGIN
-	BEGIN
-		start_time := clock_timestamp();
-TRUNCATE TABLE bronze_wh_sales;
-COPY bronze_wh_sales
-FROM 'C:\Program Files\PostgreSQL\16\Warehouse_and_Retail_Sales.csv'
-DELIMITER ','
-CSV HEADER;
-		end_time := clock_timestamp();
-		duration := end_time - start_time;
-		
-		RAISE NOTICE 'Load Time: % ms',
-			EXTRACT(MILLISECOND FROM duration) + EXTRACT(SECOND FROM duration)* 1000;	
-		
-		SELECT COUNT(*) INTO row_count FROM bronze_wh_sales;
-		RAISE NOTICE 'total no of rows in bronze_wh_sales: %', row_count;
+    BEGIN
+        -- Capture start time
+        start_time := clock_timestamp();
 
-		EXCEPTION
-			WHEN OTHERS THEN
-			RAISE NOTICE 'no of errors during upload: %', SQLERRM;
+        -- Clear existing data in the bronze table
+        TRUNCATE TABLE bronze_wh_sales;
 
-		END;
+        -- Load CSV data into bronze table
+        COPY bronze_wh_sales
+        FROM 'C:\Program Files\PostgreSQL\16\Warehouse_and_Retail_Sales.csv'
+        DELIMITER ',' 
+        CSV HEADER;
+
+        -- Capture end time and calculate duration
+        end_time := clock_timestamp();
+        duration := end_time - start_time;
+        
+        -- Log execution duration in milliseconds
+        RAISE NOTICE 'Load Time: % ms',
+            EXTRACT(MILLISECOND FROM duration) + EXTRACT(SECOND FROM duration) * 1000;	
+
+        -- Count and log number of rows inserted
+        SELECT COUNT(*) INTO row_count FROM bronze_wh_sales;
+        RAISE NOTICE 'Total no of rows in bronze_wh_sales: %', row_count;
+
+    EXCEPTION
+        -- Catch and log any errors
+        WHEN OTHERS THEN
+            RAISE NOTICE 'Error during upload: %', SQLERRM;
+    END;
 END $$;
 
 
-ALTER TABLE wh_sales
-RENAME rear to year;
-
-SELECT * FROM bronze_wh_sales;
 
 
+-- ===========================================================================
+-- Script: Bronze to Silver ETL
+-- Purpose:
+--   1. Clear the silver_wh_sales table before reloading.
+--   2. Insert data from bronze_wh_sales into silver_wh_sales.
+--   3. Silver layer is usually a "cleaned" version of bronze,
+--      but here we are just doing a direct copy (no transformations yet).
+-- ===========================================================================
 
-CALL bronze_wh_sales();
-
-
--- QUALITY CHECK
-
-SELECT DISTINCT(year) FROM wh_sales;
-
-
-DROP TABLE silver_wh_sales;
-
+-- Step 1: Remove existing records in the silver layer
 TRUNCATE TABLE silver_wh_sales;
-INSERT INTO silver_wh_sales(
-year,
-month,
-supplier,
-itemcode,
-item_description,
-item_type,
-retail_sales,
-retail_transfer,
-warehouse_sales
-)
 
+-- Step 2: Load data from bronze layer into silver layer
+INSERT INTO silver_wh_sales (
+    year,
+    month,
+    supplier,
+    itemcode,
+    item_description,
+    item_type,
+    retail_sales,
+    retail_transfer,
+    warehouse_sales
+)
 SELECT 
-year,
-month,
-supplier,
-itemcode,
-item_description,
-item_type,
-retail_sales,
-retail_transfer,
-warehouse_sales
+    year,                -- Year of record
+    month,               -- Month of record
+    supplier,            -- Supplier name
+    itemcode,            -- Item code
+    item_description,    -- Description of item
+    item_type,           -- Type/category of item
+    retail_sales,        -- Retail sales
+    retail_transfer,     -- Retail transfers
+    warehouse_sales      -- Warehouse sales
 FROM bronze_wh_sales;
+
