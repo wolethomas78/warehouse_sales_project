@@ -1,0 +1,85 @@
+
+
+-- Drop the table if it already exists to avoid conflicts when recreating
+DROP TABLE silver_wh_sales;
+
+-- Create the table silver_wh_sales if it does not already exist
+CREATE TABLE IF NOT EXISTS silver_wh_sales (
+    year INT,                           -- The year of the sales record
+    month INT,                          -- The month of the sales record
+    supplier VARCHAR(100),              -- Supplier name (up to 100 characters)
+    itemcode VARCHAR(100),              -- Unique code identifying the item
+    item_description VARCHAR(100),      -- Description of the item
+    item_type VARCHAR(100),             -- Category/type of the item
+    retail_sales FLOAT,                 -- Sales revenue from retail channels
+    retail_transfer FLOAT,              -- Transfers to retail (not direct sales)
+    warehouse_sales FLOAT               -- Sales revenue from the warehouse
+);
+
+
+-- Procedure to load and transform data from silver_wh_sales into gold_wh_sales
+-- Adds data cleansing (capitalization, handling nulls), and performance logging
+
+CREATE OR REPLACE PROCEDURE gold_wh_sales()
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    start_time TIMESTAMP;  -- Track when the load starts
+    end_time TIMESTAMP;    -- Track when the load ends
+    duration INTERVAL;     -- Calculate total execution duration
+    row_count BIGINT;      -- Store number of rows loaded into gold_wh_sales
+BEGIN
+    BEGIN 
+        -- Capture the starting timestamp
+        start_time := clock_timestamp();
+        
+        -- Remove existing records from target table before reloading
+        TRUNCATE TABLE gold_wh_sales;
+
+        -- Insert transformed data from silver_wh_sales into gold_wh_sales
+        INSERT INTO gold_wh_sales(
+            year,
+            month_name,
+            supplier,
+            itemcode,
+            item_description,
+            item_type,
+            retail_sales,
+            retail_transfer,
+            warehouse_sales
+        )
+        SELECT
+            year,
+            TO_CHAR(TO_DATE(month::text, 'MM'), 'Mon') AS month_name, -- Convert numeric month to abbreviated name
+            INITCAP(supplier) AS supplier,                           -- Capitalize supplier name
+            itemcode,
+            INITCAP(item_description) AS item_description,           -- Capitalize item description
+            INITCAP(COALESCE(item_type, 'unknown')) AS item_type,    -- Replace null item_type with "unknown" and capitalize
+            COALESCE(retail_sales, 0) AS retail_sales,               -- Replace null sales with 0
+            retail_transfer,
+            warehouse_sales
+        FROM silver_wh_sales;
+
+        -- Capture end timestamp and calculate duration
+        end_time := clock_timestamp();
+        duration := end_time - start_time;
+        
+        -- Log execution time in milliseconds
+        RAISE NOTICE 'Load Time: % ms',
+            EXTRACT(MILLISECOND FROM duration) + EXTRACT(SECOND FROM duration) * 1000;	
+
+        -- Count and log number of rows loaded
+        SELECT COUNT(*) INTO row_count FROM gold_wh_sales;
+        RAISE NOTICE 'Total no of rows in gold_wh_sales: %', row_count;
+
+    EXCEPTION
+        -- Generic error handling: log any SQL errors
+        WHEN OTHERS THEN
+            RAISE NOTICE 'Error during upload: %', SQLERRM;
+    END;
+END $$;
+
+
+
+CALL gold_wh_sales();
+
