@@ -1,0 +1,89 @@
+
+DROP TABLE bronze_wh_sales;
+CREATE TABLE IF NOT EXISTS bronze_wh_sales(
+year INT,
+month INT,
+supplier VARCHAR (100),
+itemcode VARCHAR (100),
+item_description VARCHAR (100),
+item_type VARCHAR (100),
+retail_sales FLOAT,
+retail_transfer FLOAT,
+warehouse_sales FLOAT
+);
+
+
+CREATE OR REPLACE PROCEDURE bronze_wh_sales()
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+		start_time TIMESTAMP;
+		end_time TIMESTAMP;
+		duration INTERVAL;
+		row_count BIGINT;
+BEGIN
+	BEGIN
+		start_time := clock_timestamp();
+TRUNCATE TABLE bronze_wh_sales;
+COPY bronze_wh_sales
+FROM 'C:\Program Files\PostgreSQL\16\Warehouse_and_Retail_Sales.csv'
+DELIMITER ','
+CSV HEADER;
+		end_time := clock_timestamp();
+		duration := end_time - start_time;
+		
+		RAISE NOTICE 'Load Time: % ms',
+			EXTRACT(MILLISECOND FROM duration) + EXTRACT(SECOND FROM duration)* 1000;	
+		
+		SELECT COUNT(*) INTO row_count FROM bronze_wh_sales;
+		RAISE NOTICE 'total no of rows in bronze_wh_sales: %', row_count;
+
+		EXCEPTION
+			WHEN OTHERS THEN
+			RAISE NOTICE 'no of errors during upload: %', SQLERRM;
+
+		END;
+END $$;
+
+
+ALTER TABLE wh_sales
+RENAME rear to year;
+
+SELECT * FROM bronze_wh_sales;
+
+
+
+CALL bronze_wh_sales();
+
+
+-- QUALITY CHECK
+
+SELECT DISTINCT(year) FROM wh_sales;
+
+
+DROP TABLE silver_wh_sales;
+
+TRUNCATE TABLE silver_wh_sales;
+INSERT INTO silver_wh_sales(
+year,
+month,
+supplier,
+itemcode,
+item_description,
+item_type,
+retail_sales,
+retail_transfer,
+warehouse_sales
+)
+
+SELECT 
+year,
+month,
+supplier,
+itemcode,
+item_description,
+item_type,
+retail_sales,
+retail_transfer,
+warehouse_sales
+FROM bronze_wh_sales;
