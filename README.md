@@ -166,24 +166,17 @@ FROM gold_wh_sales
 GROUP BY  item_type
 ORDER BY avg_retail_sales DESC;
 ```
-Explanation
-
-This query calculates the average retail sales per item type from the gold_wh_sales table.
-
-AVG(retail_sales) → Finds the mean retail sales amount for each type of product (e.g., electronics, clothing, groceries).
-
+### Explanation
+- This query calculates the average retail sales per item type from the gold_wh_sales table.
+AVG(retail_sales) → Finds the mean retail sales amount for each type of product (Non-alcohol products, Beer, liquor, Ref, Wine).
 GROUP BY item_type → Breaks down the calculation by product category.
-
 ORDER BY avg_retail_sales DESC → Sorts the results so the item types with the highest average retail sales appear at the top.
-
 TO_CHAR(..., '$9,999,999.00') → Formats the numbers into a dollar format for readability.
-
 The result will show, for each item type, the average sales amount in descending order.
 
-## Why It Matters
-
+### Why It Matters
 This tells us which categories are performing best on average. For example:
-- If electronics average higher sales than apparel, it shows stronger consumer demand and/or higher price points.
+- Non-alcohol has the average higher sales than Beer, it shows stronger consumer demand and/or higher price points.
 - Lower averages might indicate underperformance, overstocking, or weak customer demand.
 This information helps identify:
 - Top-performing categories worth investing more in.
