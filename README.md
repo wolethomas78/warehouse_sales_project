@@ -13,8 +13,8 @@ Each record captures the movement of a specific item within a given month. The d
 ### Column	Description
 - ```supplier```	The supplier, vendor, or manufacturer of the product.
 - ```itemcode```	Unique identifier assigned to the product.
-item_description	Text description of the product (e.g., brand, packaging).
-item_type	Category or type of item (e.g., department classification).
-retail_sales	Quantity/value of items sold at retail outlets.
-retail_transfer	Quantity/value of items transferred between retail stores or back to warehouse.
-warehouse_sales	Quantity/value of items distributed or sold from the warehouse.
+- ```item_description```	Text description of the product (e.g., brand, packaging).
+- ```item_type```	Category or type of item (e.g., department classification).
+- ```retail_sales```	Quantity/value of items sold at retail outlets.
+- ```retail_transfer```	Quantity/value of items transferred between retail stores or back to warehouse.
+- ```warehouse_sales```	Quantity/value of items distributed or sold from the warehouse.
