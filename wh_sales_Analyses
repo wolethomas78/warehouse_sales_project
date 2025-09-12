@@ -1,0 +1,59 @@
+
+--  ------------------------------------Aggregate Metrics------------------------------------------------
+
+-- Total sales: Sum of retail sales, transfers, and warehouse sales.
+SELECT TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
+	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
+	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
+FROM gold_wh_sales;
+	   
+
+-- Average sales: Average retail sales per item type.
+SELECT TO_CHAR(AVG(retail_sales), '$9,999,999.00') AS avg_retail_sales,
+       item_type
+FROM gold_wh_sales
+GROUP BY  item_type
+ORDER BY avg_retail_sales DESC;
+
+-- --------------------------- Time-based Analysis-------------------------------------------------------
+--Yearly trends: Total sales per year to identify growth or decline.
+SELECT year,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
+	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
+	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
+FROM gold_wh_sales
+    GROUP BY year
+	ORDER BY year;
+
+
+
+
+-- Monthly trends: Total sales per month across years to find seasonal patterns.
+SELECT month_name,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
+	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
+	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
+FROM gold_wh_sales
+    GROUP BY month_name
+	ORDER BY EXTRACT(MONTH FROM TO_DATE(month_name, 'Mon'));
+
+
+-- item trends: Track monthly sales for a item.
+SELECT month_name, item_type,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
+	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
+	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
+FROM gold_wh_sales
+    GROUP BY month_name,item_type
+	ORDER BY EXTRACT(MONTH FROM TO_DATE(month_name, 'Mon'));
+
+-- ---------------------------------Distribution & Comparison---------------------------------------
+
+-- Top-selling items: Items with the top 5 highest total retail sales, For “top suppliers” in terms of revenue:
+
+SELECT supplier,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales
+FROM gold_wh_sales 
+GROUP BY supplier, item_type
+ORDER BY total_retail_sales DESC
+LIMIT 5;
