@@ -9,11 +9,11 @@
 Dataset Structure
 
 -  ``
-queries/
-├── bronze_cleaning.sql
-├── silver_transforms.sql
-├── gold_analytics.sql
-└── exploratory_analysis.sql
+- queries/
+- ├── bronze_cleaning.sql
+- ├── silver_transforms.sql
+- ├── gold_analytics.sql
+- └── exploratory_analysis.sql
 - ```
 Each record captures the movement of a specific item within a given month. The dataset includes the following key fields:
 
