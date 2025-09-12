@@ -130,11 +130,11 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 ```
 
 ## Exploratory Analysis using POSTGRESQL :
-	```
+```
 	 -- Total sales: Sum of retail sales, transfers, and warehouse sales.
 	SELECT TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
 		  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
 		  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
 	FROM gold_wh_sales;
-  ```
+ ```
 
