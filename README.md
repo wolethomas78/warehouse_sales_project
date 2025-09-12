@@ -19,13 +19,13 @@ Each record captures the movement of a specific item within a given month. The d
 - ```retail_transfer```	value of items transferred between retail stores or back to warehouse.
 - ```warehouse_sales```	value of items distributed or sold from the warehouse.
 
- ###Coverage
+ ### Coverage
 - Time Span: Data available from 2017 onwards
 - Frequency: Updated monthly
 - Geography: Montgomery County, Maryland, USA
 
 
-- - The Bronze code represents the raw data ingestion layer, where the Warehouse and Retail Sales dataset from Data.gov
+- - The Bronze code represents the raw data ingestion layer, where the Warehouse and Retail Sales dataset was ingested to ![Bronze layer](https://github.com/wolethomas78/warehouse_sales_project/blob/fbd2c6c172512009c07ecac736967c0a0ffae01c/bronze_wh_code)
  is first loaded in its original form to preserve data fidelity before any cleaning, transformation, or enrichment is applied.
 ```-- ===========================================================================
 -- Script: Bronze Layer Table and Load Procedure
