@@ -18,3 +18,8 @@ Each record captures the movement of a specific item within a given month. The d
 - ```retail_sales```	value of items sold at retail outlets.
 - ```retail_transfer```	value of items transferred between retail stores or back to warehouse.
 - ```warehouse_sales```	value of items distributed or sold from the warehouse.
+
+ ###Coverage
+- Time Span: Data available from 2017 onwards
+- Frequency: Updated monthly
+- Geography: Montgomery County, Maryland, USA
