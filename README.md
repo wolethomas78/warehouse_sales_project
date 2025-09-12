@@ -26,7 +26,7 @@ Each record captures the movement of a specific item within a given month. The d
 
  ## Bronze Layer
 - - The Bronze code represents the raw data ingestion layer, where the Warehouse and Retail Sales dataset was ingested to ![Bronze layer](https://github.com/wolethomas78/warehouse_sales_project/blob/fbd2c6c172512009c07ecac736967c0a0ffae01c/bronze_wh_code)
- is first loaded in its original form to preserve data fidelity before any cleaning, transformation, or enrichment is applied.
+ The data is first loaded in its original form to preserve data fidelity before any cleaning, transformation, or enrichment is applied.
 
 ```-- ===========================================================================
 -- Script: Bronze Layer Table and Load Procedure
