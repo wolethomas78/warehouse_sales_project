@@ -138,3 +138,22 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 	FROM gold_wh_sales;
  ```
 
+### Explanation:
+The SQL query is calculating total sales across three key categories from the gold_wh_sales table:
+Retail Sales – These are direct sales made to customers.
+Retail Transfers – These represent inventory or product transfers between retail locations (e.g., from one store to another). While not always revenue, they reflect stock movement that supports sales.
+Warehouse Sales – These are sales fulfilled directly from the warehouse (often bulk sales, wholesale orders, or online fulfillment).
+
+The query:
+Adds up (SUM) each of these categories.
+Formats the results in a currency-friendly display (e.g., $1,234,567.00) for easy readability.
+So, the final output will show:
+Total Retail Sales
+Total Transfer Value
+Total Warehouse Sales
+This gives us a consolidated financial snapshot of how sales and product movements are distributed across channels.
+
+### Why It Matters
+Retail Sales tell us how well our stores are performing with direct customers.
+Transfers help us understand how much effort is going into balancing inventory across stores, which can highlight supply chain efficiency or strain.
+Warehouse Sales reveal how much business is being done through wholesale, bulk orders, or warehouse-driven fulfillment channels (important for scaling and logistics).
