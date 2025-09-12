@@ -191,6 +191,7 @@ SELECT year,
 	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
 FROM gold_wh_sales
     GROUP BY year
+	ORDER BY year;
 ```
 
 ###  Explanation
@@ -234,5 +235,12 @@ FROM gold_wh_sales
 ### Retail Transfers closely mirror Retail Sales
 - Suggests inventory balancing between stores is proportional to direct customer sales.
  High transfer activity may signal supply chain inefficiencies or demand mismatches between locations.
-	ORDER BY year;
-```
+	
+## Recommendations
+- Strengthen Warehouse/Online Channels
+-Since warehouse sales consistently lead, invest further in e-commerce, logistics, and fulfillment capacity.
+### Retail Store Strategy
+- Explore why retail sales are unstable:
+- Low customer footfall?
+- Pricing competitiveness?
+- Changing shopping habits?
