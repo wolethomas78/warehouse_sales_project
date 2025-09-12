@@ -191,5 +191,48 @@ SELECT year,
 	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
 FROM gold_wh_sales
     GROUP BY year
+```
+
+###  Explanation
+- This SQL query is designed to analyze yearly sales trends from the gold_wh_sales dataset.
+- GROUP BY year → Aggregates results by each year in the dataset.
+- SUM(retail_sales) → Adds up total sales made directly in retail stores.
+- SUM(retail_transfer) → Adds up the value of product transfers between retail locations.
+- SUM(warehouse_sales) → Adds up total warehouse-driven sales (bulk, wholesale, or online fulfillment).
+- TO_CHAR(..., '$9,999,999.00') → Formats totals in a clear dollar format for reporting.
+- ORDER BY year → Displays results chronologically, allowing us to see growth or decline year over year.
+- The output will be a table of yearly totals across three sales channels.
+
+###  Why It Matters
+- This analysis answers:
+- Are sales growing year over year, or are they declining?
+- Which channel is driving growth (retail, transfers, or warehouse)?
+- Are there shifts in how customers are buying? For example:
+- A rise in warehouse sales may suggest more bulk/online demand.
+- A decline in retail sales might point to reduced store performance.
+- High transfers year over year may reveal supply chain inefficiencies.
+- Understanding these yearly patterns is critical for strategic planning, forecasting, and investment decisions.
+
+### Key Insights
+- 2017 → 2018 sharp decline
+- Retail sales dropped ~78%.
+- Warehouse sales also declined by ~78%.
+- Possible causes: economic downturn, supply disruptions, or reduced demand.
+
+#### 2018 → 2019 strong rebound
+ -Retail sales grew >500%, warehouse sales grew ~582%.
+- This suggests a strong recovery — possibly due to expansion, restocking, or improved market conditions.
+- 
+#### 2019 → 2020 decline again
+- Sales fell by ~62% in retail and ~61% in warehouse.
+- This aligns with COVID-19 impacts (store closures, supply chain issues, reduced consumer spending).
+
+### Warehouse sales consistently dominate
+- Every year, warehouse sales were ~3x to 4x higher than retail sales.
+- Indicates the bulk/online/wholesale channel is the primary revenue driver.
+
+### Retail Transfers closely mirror Retail Sales
+- Suggests inventory balancing between stores is proportional to direct customer sales.
+ High transfer activity may signal supply chain inefficiencies or demand mismatches between locations.
 	ORDER BY year;
 ```
