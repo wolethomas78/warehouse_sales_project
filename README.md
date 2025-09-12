@@ -14,7 +14,7 @@
 - ├── gold_analytics.sql
 - └── exploratory_analysis.sql
   ```
-  ### Dataset Structure
+ -  ### Dataset Structure
 Each record captures the movement of a specific item within a given month. The dataset includes the following key fields:
 
 ### Column	Description
