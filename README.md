@@ -23,3 +23,30 @@ Each record captures the movement of a specific item within a given month. The d
 - Time Span: Data available from 2017 onwards
 - Frequency: Updated monthly
 - Geography: Montgomery County, Maryland, USA
+
+
+
+```-- ===========================================================================
+-- Script: Bronze Layer Table and Load Procedure
+-- Purpose: 
+--   1. Create the bronze_wh_sales table (raw staging layer).
+--   2. Load raw CSV data into bronze_wh_sales using a stored procedure.
+--   3. Capture load time, row count, and handle errors.
+--
+-- ===========================================================================
+
+-- Drop the table if it exists, to ensure a fresh definition
+DROP TABLE bronze_wh_sales;
+
+-- Create the bronze layer table to hold raw data from CSV
+CREATE TABLE IF NOT EXISTS bronze_wh_sales (
+    year INT,                          -- Year of the record
+    month INT,                         -- Month of the record
+    supplier VARCHAR(100),             -- Supplier name
+    itemcode VARCHAR(100),             -- Unique item code
+    item_description VARCHAR(100),     -- Description of the item
+    item_type VARCHAR(100),            -- Type or category of the item
+    retail_sales FLOAT,                -- Retail sales value
+    retail_transfer FLOAT,             -- Retail transfer value
+    warehouse_sales FLOAT              -- Warehouse sales value
+);```
