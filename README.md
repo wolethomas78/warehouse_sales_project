@@ -93,4 +93,31 @@ BEGIN
 
 ## Gold Layer
 
-The Gold code produces curated, business-ready datasets optimized for reporting, dashboards, and advanced analytics, ensuring high performance and usability for decision-making.
+The ![Gold code](https://github.com/wolethomas78/warehouse_sales_project/blob/b32f6f4e0b10de95b9fa0c9a2f9f3c7f754ff356/gold_wh_clean_data) produces curated, business-ready datasets optimized for reporting, dashboards, and advanced analytics, ensuring high performance and usability for decision-making.
+```
+-- ===========================================================================
+-- Script: Gold Layer Table Definition
+-- Purpose:
+--   1. Drop existing gold_wh_sales table if it exists.
+--   2. Create the gold_wh_sales table, which holds
+--      curated, cleaned, and business-ready data.
+--   3. This is the final reporting/analytics layer.
+--
+-- ===========================================================================
+
+-- Step 1: Drop existing table to avoid conflicts
+DROP TABLE gold_wh_sales;
+
+-- Step 2: Create gold layer table if it does not exist
+CREATE TABLE IF NOT EXISTS gold_wh_sales (
+    year INT,                          -- Year of the record
+    month_name VARCHAR(100),           -- Month name (e.g., 'Jan', 'Feb')
+    supplier VARCHAR(100),             -- Supplier name (standardized/cleaned)
+    itemcode VARCHAR(100),             -- Unique item identifier
+    item_description VARCHAR(100),     -- Item description (cleaned/standardized)
+    item_type VARCHAR(100),            -- Item category/type
+    retail_sales FLOAT,                -- Final retail sales value
+    retail_transfer FLOAT,             -- Final retail transfer value
+    warehouse_sales FLOAT              -- Final warehouse sales value
+);
+```
