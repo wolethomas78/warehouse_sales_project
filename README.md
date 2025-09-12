@@ -181,3 +181,15 @@ This tells us which categories are performing best on average. For example:
 This information helps identify:
 - Top-performing categories worth investing more in.
 - Low-performing categories that may need better marketing, pricing changes, or product assortment reviews.
+
+```
+	-- --------------------------- Time-based Analysis-------------------------------------------------------
+--Yearly trends: Total sales per year to identify growth or decline.
+SELECT year,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
+	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
+	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
+FROM gold_wh_sales
+    GROUP BY year
+	ORDER BY year;
+```
