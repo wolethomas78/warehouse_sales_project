@@ -56,6 +56,40 @@ CREATE TABLE IF NOT EXISTS bronze_wh_sales (
 
  ## Silver Layer
 The Silver code transforms raw Bronze data into a structured and cleaned format by applying validation, standardization, and enrichment rules, making the dataset ready for analytical and business use.
+```
+-- Drop the table if it already exists to avoid conflicts when recreating
+DROP TABLE silver_wh_sales;
+
+-- Create the table silver_wh_sales if it does not already exist
+CREATE TABLE IF NOT EXISTS silver_wh_sales (
+    year INT,                           -- The year of the sales record
+    month INT,                          -- The month of the sales record
+    supplier VARCHAR(100),              -- Supplier name (up to 100 characters)
+    itemcode VARCHAR(100),              -- Unique code identifying the item
+    item_description VARCHAR(100),      -- Description of the item
+    item_type VARCHAR(100),             -- Category/type of the item
+    retail_sales FLOAT,                 -- Sales revenue from retail channels
+    retail_transfer FLOAT,              -- Transfers to retail (not direct sales)
+    warehouse_sales FLOAT               -- Sales revenue from the warehouse
+);
+
+
+-- Procedure to load and transform data from silver_wh_sales into gold_wh_sales
+-- Adds data cleansing (capitalization, handling nulls), and performance logging
+
+CREATE OR REPLACE PROCEDURE gold_wh_sales()
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    start_time TIMESTAMP;  -- Track when the load starts
+    end_time TIMESTAMP;    -- Track when the load ends
+    duration INTERVAL;     -- Calculate total execution duration
+    row_count BIGINT;      -- Store number of rows loaded into gold_wh_sales
+BEGIN
+    BEGIN 
+        -- Capture the starting timestamp
+        start_time := clock_timestamp();
+```
 
 ## Gold Layer
 
