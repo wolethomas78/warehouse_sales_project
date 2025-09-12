@@ -7,14 +7,14 @@
 ![Data flow](https://github.com/wolethomas78/warehouse_sales_project/blob/b410fa532a0b9c47adcc5d13df9bfef1b56b030c/ETL_WHS.png)
 
 
- ``
+ ```
 - queries/
 - ├── bronze_cleaning.sql
 - ├── silver_transforms.sql
 - ├── gold_analytics.sql
 - └── exploratory_analysis.sql
--  ```
- -  ### Dataset Structure
+ ```
+  - ### Dataset Structure
 Each record captures the movement of a specific item within a given month. The dataset includes the following key fields:
 
 ### Column	Description
