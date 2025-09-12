@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS bronze_wh_sales (
 );```
 
 
-## Silver Layer
+ ## Silver Layer
 The Silver code transforms raw Bronze data into a structured and cleaned format by applying validation, standardization, and enrichment rules, making the dataset ready for analytical and business use.
 
 ## Gold Layer
