@@ -157,3 +157,12 @@ This gives us a consolidated financial snapshot of how sales and product movemen
 - Retail Sales tell us how well our stores are performing with direct customers.
 - Transfers help us understand how much effort is going into balancing inventory across stores, which can highlight supply chain efficiency or strain.
 - Warehouse Sales reveal how much business is being done through wholesale, bulk orders, or warehouse-driven fulfillment channels (important for scaling and logistics).
+
+```
+	-- Average sales: Average retail sales per item type.
+SELECT TO_CHAR(AVG(retail_sales), '$9,999,999.00') AS avg_retail_sales,
+       item_type
+FROM gold_wh_sales
+GROUP BY  item_type
+ORDER BY avg_retail_sales DESC;
+```
