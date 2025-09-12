@@ -25,7 +25,8 @@ Each record captures the movement of a specific item within a given month. The d
 - Geography: Montgomery County, Maryland, USA
 
 
-
+- - The Bronze code represents the raw data ingestion layer, where the Warehouse and Retail Sales dataset from Data.gov
+ is first loaded in its original form to preserve data fidelity before any cleaning, transformation, or enrichment is applied.
 ```-- ===========================================================================
 -- Script: Bronze Layer Table and Load Procedure
 -- Purpose: 
