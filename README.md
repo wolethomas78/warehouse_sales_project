@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS bronze_wh_sales (
 ```
 
  ## Silver Layer
-The Silver code transforms raw Bronze data into a structured and cleaned format by applying validation, standardization, and enrichment rules, making the dataset ready for analytical and business use.
+The ![Silver code](https://github.com/wolethomas78/warehouse_sales_project/blob/4ab918409a69aa3252bf05dbed3af7c20cbc9f05/silver_wh_code) transforms raw Bronze data into a structured and cleaned format by applying validation, standardization, and enrichment rules, making the dataset ready for analytical and business use.
 ```
 -- Drop the table if it already exists to avoid conflicts when recreating
 DROP TABLE silver_wh_sales;
