@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
  ```
 ### Results
  ```
-Retail Sales	Transfers	Warehouse Sales
+Retail Sales	Transfers Sales	Warehouse Sales
 $2,160,899.37	$2,133,968.63	$7,781,756.28
  ```
 ### Analysis
