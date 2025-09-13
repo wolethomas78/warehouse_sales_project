@@ -337,3 +337,13 @@ LIMIT 5;
 - Seasonal Focus: Prioritize inventory, marketing, and promotions for summer months (Jun–Sep) when sales peak. Use Apr–May and Dec for targeted campaigns to boost low sales.
 - Item Strategy: Focus on beer for volume in summer, maintain steady wine and liquor supply year-round. Monitor returns/adjustments separately.
 - Supplier Management: Strengthen relationships with top suppliers (Gallo, Diageo, Constellation, Anheuser Busch, Jim Beam) and track which product types drive revenue.
+
+- ### Tools
+- - Postgresql
+  - Github
+  - Draw I.O
+
+### Contact Me
+- Connect with me on LinkedIn: [LinkedIn](https://www.linkedin.com/in/oluwolefagbemi)
+- Email: wolethomas78@gmail.com
+- Open to collaborations, discussions, and data analytics opportunities
