@@ -137,110 +137,11 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 		  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
 	FROM gold_wh_sales;
  ```
+	- 	Results
+ ```
+Retail Sales	Transfers	Warehouse Sales
+$2,160,899.37	$2,133,968.63	$7,781,756.28
+ ```
 
-### Explanation:
-The SQL query is calculating total sales across three key categories from the gold_wh_sales table:
-- Retail Sales – These are direct sales made to customers.
-- Retail Transfers – These represent inventory or product transfers between retail locations (e.g., from one store to another). While not always revenue, they reflect stock movement that supports sales.
-- Warehouse Sales – These are sales fulfilled directly from the warehouse (often bulk sales, wholesale orders, or online fulfillment).
 
-The query:
-- Adds up (SUM) each of these categories.
-- Formats the results in a currency-friendly display (e.g., $1,234,567.00) for easy readability.
-So, the final output will show:
-- Total Retail Sales
-- Total Transfer Value
-- Total Warehouse Sales
-This gives us a consolidated financial snapshot of how sales and product movements are distributed across channels.
 
-### Why It Matters
-- Retail Sales tell us how well our stores are performing with direct customers.
-- Transfers help us understand how much effort is going into balancing inventory across stores, which can highlight supply chain efficiency or strain.
-- Warehouse Sales reveal how much business is being done through wholesale, bulk orders, or warehouse-driven fulfillment channels (important for scaling and logistics).
-
-```
-	-- Average sales: Average retail sales per item type.
-SELECT TO_CHAR(AVG(retail_sales), '$9,999,999.00') AS avg_retail_sales,
-       item_type
-FROM gold_wh_sales
-GROUP BY  item_type
-ORDER BY avg_retail_sales DESC;
-```
-### Explanation
-- This query calculates the average retail sales per item type from the gold_wh_sales table.
-- AVG(retail_sales) → Finds the mean retail sales amount for each type of product (Non-alcohol products, Beer, liquor, Ref, Wine).
-- GROUP BY item_type → Breaks down the calculation by product category.
-- ORDER BY avg_retail_sales DESC → Sorts the results so the item types with the highest average retail sales appear at the top.
-- TO_CHAR(..., '$9,999,999.00') → Formats the numbers into a dollar format for readability.
-- The result will show, for each item type, the average sales amount in descending order.
-
-### Why It Matters
-This tells us which categories are performing best on average. For example:
-- Non-alcohol has the average higher sales than Beer, it shows stronger consumer demand and/or higher price points.
-- Lower averages might indicate underperformance, overstocking, or weak customer demand.
-This information helps identify:
-- Top-performing categories worth investing more in.
-- Low-performing categories that may need better marketing, pricing changes, or product assortment reviews.
-
-```
-	-- --------------------------- Time-based Analysis-------------------------------------------------------
---Yearly trends: Total sales per year to identify growth or decline.
-SELECT year,
-	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
-	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
-	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
-FROM gold_wh_sales
-    GROUP BY year
-	ORDER BY year;
-```
-
-###  Explanation
-- This SQL query is designed to analyze yearly sales trends from the gold_wh_sales dataset.
-- GROUP BY year → Aggregates results by each year in the dataset.
-- SUM(retail_sales) → Adds up total sales made directly in retail stores.
-- SUM(retail_transfer) → Adds up the value of product transfers between retail locations.
-- SUM(warehouse_sales) → Adds up total warehouse-driven sales (bulk, wholesale, or online fulfillment).
-- TO_CHAR(..., '$9,999,999.00') → Formats totals in a clear dollar format for reporting.
-- ORDER BY year → Displays results chronologically, allowing us to see growth or decline year over year.
-- The output will be a table of yearly totals across three sales channels.
-
-###  Why It Matters
-- This analysis answers:
-- Are sales growing year over year, or are they declining?
-- Which channel is driving growth (retail, transfers, or warehouse)?
-- Are there shifts in how customers are buying? For example:
-- A rise in warehouse sales may suggest more bulk/online demand.
-- A decline in retail sales might point to reduced store performance.
-- High transfers year over year may reveal supply chain inefficiencies.
-- Understanding these yearly patterns is critical for strategic planning, forecasting, and investment decisions.
-
-### Key Insights
-- 2017 → 2018 sharp decline
-- Retail sales dropped ~78%.
-- Warehouse sales also declined by ~78%.
-- Possible causes: economic downturn, supply disruptions, or reduced demand.
-
-#### 2018 → 2019 strong rebound
- -Retail sales grew >500%, warehouse sales grew ~582%.
-- This suggests a strong recovery — possibly due to expansion, restocking, or improved market conditions.
-- 
-#### 2019 → 2020 decline again
-- Sales fell by ~62% in retail and ~61% in warehouse.
-- This aligns with COVID-19 impacts (store closures, supply chain issues, reduced consumer spending).
-
-### Warehouse sales consistently dominate
-- Every year, warehouse sales were ~3x to 4x higher than retail sales.
-- Indicates the bulk/online/wholesale channel is the primary revenue driver.
-
-### Retail Transfers closely mirror Retail Sales
-- Suggests inventory balancing between stores is proportional to direct customer sales.
- High transfer activity may signal supply chain inefficiencies or demand mismatches between locations.
-	
-## Recommendations
-- Strengthen Warehouse/Online Channels
--Since warehouse sales consistently lead, invest further in e-commerce, logistics, and fulfillment capacity.
-### Retail Store Strategy
-- Explore why retail sales are unstable:
-- Low customer footfall?
-- Pricing competitiveness?
-- Changing shopping habits?
