@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 		  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
 	FROM gold_wh_sales;
  ```
-#### Results
+#### Outputs
  ```
 Retail Sales	Transfers Sales	Warehouse Sales
 $2,160,899.37	$2,133,968.63	$7,781,756.28
@@ -160,7 +160,7 @@ FROM gold_wh_sales
 GROUP BY  item_type
 ORDER BY avg_retail_sales DESC;
  ```
-  #### Results
+  #### Outputs
  ```
 Item Type	Avg Retail Sales
 Non-Alcohol	$17.86
@@ -190,7 +190,7 @@ FROM gold_wh_sales
     GROUP BY year
 	ORDER BY year;
 ```
- ### Results
+ #### Outputs
  ```
 Year	Retail Sales  Transfers Sales	  Warehouse Sales
 2017	$686,734.57	   $676,620.50 	        $2,333,849.13
@@ -213,7 +213,7 @@ FROM gold_wh_sales
     GROUP BY month_name
 	ORDER BY EXTRACT(MONTH FROM TO_DATE(month_name, 'Mon'));
  ```
- ### Results
+ #### Outputs
 ```
 	"Jan"	"$   226,211.07"	"$   226,689.12"	"$   819,013.63"
 "Feb"	"$   157,917.67"	"$   151,672.76"	"$   513,596.20"
@@ -246,3 +246,114 @@ FROM gold_wh_sales
 - Holiday season (Nov–Dec) doesn’t show the expected spike — possibly meaning the products aren’t holiday-driven.
 - Spring (Apr–May) is consistently low.
 - Overall Pattern: Business shows volatility year-to-year, with warehouse consistently being the largest revenue driver.
+
+ ```
+	-- item trends: Track monthly sales for a item.
+SELECT month_name, item_type,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
+	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
+	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
+FROM gold_wh_sales
+    GROUP BY month_name,item_type
+	ORDER BY EXTRACT(MONTH FROM TO_DATE(month_name, 'Mon'));
+```
+#### Outputs
+ ```
+"Jan"	"Beer"	"$    51,965.12"	"$    60,527.52"	"$   672,824.38"
+"Jan"	"Dunnage"	"$          .00"	"$          .00"	"$   -15,988.00"
+"Jan"	"Kegs"	"$          .00"	"$          .00"	"$    14,838.00"
+"Jan"	"Liquor"	"$    87,152.32"	"$    83,188.56"	"$    11,748.04"
+"Jan"	"Non-Alcohol"	"$     3,093.88"	"$     2,795.95"	"$     3,255.63"
+"Jan"	"Ref"	"$        70.43"	"$        50.00"	"$    -2,531.00"
+"Jan"	"Str_Supplies"	"$       300.32"	"$       887.88"	"$          .00"
+"Jan"	"Wine"	"$    83,629.00"	"$    79,239.21"	"$   134,866.58"
+"Feb"	"Beer"	"$    37,654.84"	"$    34,024.10"	"$   417,068.56"
+"Feb"	"Dunnage"	"$          .00"	"$          .00"	"$    -9,130.00"
+"Feb"	"Kegs"	"$          .00"	"$          .00"	"$     9,156.00"
+"Feb"	"Liquor"	"$    58,667.41"	"$    56,482.41"	"$     6,918.18"
+"Feb"	"Non-Alcohol"	"$     1,785.27"	"$     1,700.12"	"$     1,805.50"
+"Feb"	"Ref"	"$        67.87"	"$        25.00"	"$      -721.00"
+"Feb"	"Str_Supplies"	"$       138.06"	"$       812.00"	"$          .00"
+"Feb"	"Wine"	"$    59,604.22"	"$    58,629.13"	"$    88,498.96"
+"Mar"	"Beer"	"$    51,115.74"	"$    53,229.85"	"$   503,925.45"
+"Mar"	"Dunnage"	"$          .00"	"$          .00"	"$    -7,982.00"
+"Mar"	"Kegs"	"$          .00"	"$          .00"	"$     8,210.00"
+"Mar"	"Liquor"	"$    72,798.43"	"$    76,884.11"	"$     6,958.52"
+"Mar"	"Non-Alcohol"	"$     3,192.57"	"$     2,741.00"	"$     2,035.34"
+"Mar"	"Ref"	"$        42.03"	"$        13.00"	"$      -551.00"
+"Mar"	"Str_Supplies"	"$       177.54"	"$       849.00"	"$          .00"
+"Mar"	"Wine"	"$    66,526.02"	"$    68,203.54"	"$    98,117.39"
+"Apr"	"Beer"	"$    20,535.97"	"$    21,679.38"	"$   246,457.69"
+"Apr"	"Dunnage"	"$          .00"	"$          .00"	"$    -5,533.00"
+"Apr"	"Kegs"	"$          .00"	"$          .00"	"$     5,217.00"
+"Apr"	"Liquor"	"$    29,719.95"	"$    30,490.38"	"$     4,483.78"
+"Apr"	"Non-Alcohol"	"$       993.85"	"$     1,039.12"	"$     1,011.42"
+"Apr"	"Ref"	"$        22.62"	"$        16.00"	"$      -459.00"
+"Apr"	"Str_Supplies"	"$        94.71"	"$       340.00"	"$          .00"
+"Apr"	"Wine"	"$    28,975.48"	"$    30,069.02"	"$    47,662.98"
+"May"	"Beer"	"$    27,905.13"	"$    24,966.79"	"$   321,526.33"
+"May"	"Wine"	"$    31,036.31"	"$    29,005.58"	"$    55,323.98"
+"May"	"Str_Supplies"	"$       116.21"	"$       408.00"	"$          .00"
+"May"	"Ref"	"$        22.40"	"$        23.00"	"$       -59.00"
+"May"	"Non-Alcohol"	"$     1,302.34"	"$     1,170.46"	"$     1,255.34"
+"May"	"Liquor"	"$    34,570.71"	"$    32,482.97"	"$     5,420.93"
+"May"	"Kegs"	"$          .00"	"$          .00"	"$     5,860.00"
+"May"	"Dunnage"	"$          .00"	"$          .00"	"$    -5,536.00"
+"Jun"	"Wine"	"$    61,210.15"	"$    56,353.32"	"$    94,249.25"
+"Jun"	"Beer"	"$    55,730.30"	"$    55,872.84"	"$   619,732.48"
+"Jun"	"Dunnage"	"$          .00"	"$          .00"	"$   -11,616.00"
+"Jun"	"Kegs"	"$          .00"	"$          .00"	"$    11,594.00"
+"Jun"	"Liquor"	"$    68,530.33"	"$    64,744.37"	"$     9,391.01"
+"Jun"	"Non-Alcohol"	"$     2,465.89"	"$     2,534.46"	"$     2,503.17"
+"Jun"	"Ref"	"$        55.23"	"$        59.00"	"$       124.00"
+"Jun"	"Str_Supplies"	"$       225.75"	"$       899.74"	"$          .00"
+"Jul"	"Beer"	"$    84,840.84"	"$    79,859.68"	"$   957,368.84"
+"Jul"	"Dunnage"	"$          .00"	"$          .00"	"$   -13,684.00"
+"Jul"	"Kegs"	"$          .00"	"$        -1.00"	"$    12,680.00"
+"Jul"	"Liquor"	"$   101,831.18"	"$   102,255.82"	"$    10,929.60"
+"Jul"	"Non-Alcohol"	"$     7,083.31"	"$     4,276.59"	"$     3,747.54"
+"Jul"	"Ref"	"$       103.74"	"$        42.00"	"$      -731.00"
+"Jul"	"Str_Supplies"	"$       271.55"	"$     1,521.96"	"$          .00"
+"Jul"	"Wine"	"$    83,797.11"	"$    85,344.11"	"$   139,608.21"
+"Aug"	"Wine"	"$    59,141.09"	"$    57,513.65"	"$    95,681.60"
+"Aug"	"Str_Supplies"	"$       187.51"	"$       816.00"	"$          .00"
+"Aug"	"Ref"	"$        41.49"	"$        26.00"	"$    -8,614.00"
+"Aug"	"Non-Alcohol"	"$     2,394.85"	"$     2,417.16"	"$     2,472.46"
+"Aug"	"Liquor"	"$    65,810.90"	"$    64,750.40"	"$     8,341.85"
+"Aug"	"Kegs"	"$          .00"	"$          .00"	"$    11,430.00"
+"Aug"	"Dunnage"	"$          .00"	"$          .00"	"$   -11,068.00"
+"Aug"	"Beer"	"$    50,164.55"	"$    52,836.92"	"$   633,545.87"
+"Sep"	"Beer"	"$    69,973.19"	"$    65,520.10"	"$   838,612.67"
+"Sep"	"Wine"	"$    84,676.80"	"$    82,783.69"	"$   138,034.26"
+"Sep"	"Str_Supplies"	"$       298.42"	"$     1,359.00"	"$          .00"
+"Sep"	"Ref"	"$        65.16"	"$        40.00"	"$      -866.00"
+"Sep"	"Non-Alcohol"	"$     4,660.11"	"$     2,938.27"	"$     2,914.05"
+"Sep"	"Liquor"	"$    95,013.81"	"$    94,239.69"	"$    10,472.18"
+"Sep"	"Kegs"	"$          .00"	"$          .00"	"$    12,966.00"
+"Sep"	"Dunnage"	"$          .00"	"$          .00"	"$   -13,299.00"
+"Oct"	"Beer"	"$    46,083.93"	"$    44,256.76"	"$   543,662.14"
+"Oct"	"Dunnage"	"$          .00"	"$          .00"	"$   -12,254.00"
+"Oct"	"Kegs"	"$          .00"	"$          .00"	"$    11,172.00"
+"Oct"	"Liquor"	"$    65,616.97"	"$    69,686.63"	"$     8,787.10"
+"Oct"	"Non-Alcohol"	"$     2,800.27"	"$     1,978.59"	"$     2,070.59"
+"Oct"	"Ref"	"$        44.73"	"$        37.00"	"$    -1,763.00"
+"Oct"	"Str_Supplies"	"$       227.69"	"$       775.00"	"$          .00"
+"Oct"	"Unknown"	"$          .00"	"$          .00"	"$         1.00"
+"Oct"	"Wine"	"$    62,693.78"	"$    64,727.58"	"$   102,242.11"
+"Nov"	"Beer"	"$    49,428.76"	"$    48,961.53"	"$   522,007.80"
+"Nov"	"Dunnage"	"$          .00"	"$          .00"	"$   -10,472.00"
+"Nov"	"Kegs"	"$          .00"	"$          .00"	"$    10,474.00"
+"Nov"	"Liquor"	"$    73,457.14"	"$    74,270.20"	"$     8,035.57"
+"Nov"	"Non-Alcohol"	"$     2,995.53"	"$     1,946.24"	"$     2,132.80"
+"Nov"	"Ref"	"$        86.72"	"$        28.92"	"$    -2,528.00"
+"Nov"	"Str_Supplies"	"$       263.48"	"$     1,260.00"	"$          .00"
+"Nov"	"Wine"	"$    73,715.87"	"$    73,933.82"	"$   108,753.93"
+"Dec"	"Wine"	"$    51,492.76"	"$    48,815.39"	"$    53,945.66"
+"Dec"	"Str_Supplies"	"$       439.64"	"$       918.00"	"$          .00"
+"Dec"	"Ref"	"$        41.21"	"$        29.00"	"$    -1,800.00"
+"Dec"	"Non-Alcohol"	"$     1,316.44"	"$     1,128.42"	"$       945.75"
+"Dec"	"Liquor"	"$    49,522.28"	"$    45,260.17"	"$     3,419.51"
+"Dec"	"Kegs"	"$          .00"	"$          .00"	"$     4,834.00"
+"Dec"	"Dunnage"	"$          .00"	"$          .00"	"$    -4,892.00"
+"Dec"	"Beer"	"$    28,822.16"	"$    24,978.53"	"$   250,504.30"
+```
