@@ -198,3 +198,8 @@ Year	Retail Sales  Transfers Sales	  Warehouse Sales
 2019	$960,191.20    $957,562.40	        $3,543,371.23
 2020	$360,377.70    $346,132.81	        $1,385,009.73
  ```
+### Key Takeaways
+- 2017 → 2018 Decline: Sales dropped sharply across all channels in 2018.
+- 2019 Recovery: Strong rebound, with warehouse sales exceeding $3.5M.
+- 2020 Contraction: Noticeable dip again, likely due to external factors (e.g., market shifts, pandemic impact).
+- Overall Pattern: Business shows volatility year-to-year, with warehouse consistently being the largest revenue driver.
