@@ -174,7 +174,7 @@ Dunnage	$0.00
 Unknown	$0.00
  ```
 ### Key Takeaways
-Non-Alcohol leads with the highest average sales ($17.86 per item).
-Beer and Liquor follow as strong contributors, each above $12 average.
-Wine and Ref categories underperform (<$6 average).
-Kegs, Dunnage, Unknown show no measurable sales, possibly placeholders or underutilized categories.
+- Non-Alcohol leads with the highest average sales ($17.86 per item).
+- Beer and Liquor follow as strong contributors, each above $12 average.
+- Wine and Ref categories underperform (<$6 average).
+- Kegs, Dunnage, Unknown show no measurable sales, possibly placeholders or underutilized categories.
