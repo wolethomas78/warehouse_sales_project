@@ -151,7 +151,8 @@ $2,160,899.37	$2,133,968.63	$7,781,756.28
 #### Business Impact
 - Heavy reliance on wholesale/warehouse sales — opportunity to expand direct-to-consumer retail for more diversified growth.
 - Balanced transfer volumes suggest an efficient supply chain, which can be leveraged for scaling.
-	## Average Retail Sales by Item Type
+- 
+	### Average Retail Sales by Item Type
  ```
 	-- Average sales: Average retail sales per item type.
 SELECT TO_CHAR(AVG(retail_sales), '$9,999,999.00') AS avg_retail_sales,
@@ -203,6 +204,7 @@ Year	Retail Sales  Transfers Sales	  Warehouse Sales
 - 2019 Recovery: Strong rebound, with warehouse sales exceeding $3.5M.
 - 2020 Contraction: Noticeable dip again, likely due to external factor.
 
+ ### Total Sales by Month
  ```
 	-- Monthly trends: Total sales per month across years to find seasonal patterns.
 SELECT month_name,
@@ -247,6 +249,7 @@ FROM gold_wh_sales
 - Spring (Apr–May) is consistently low.
 - Overall Pattern: Business shows volatility year-to-year, with warehouse consistently being the largest revenue driver.
 
+ ### Monthly Sales
  ```
 	-- item trends: Track monthly sales for a item.
 SELECT month_name, item_type,
@@ -296,13 +299,14 @@ FROM gold_wh_sales
 - End of year (Nov–Dec) does not show a holiday bump, unlike typical retail liquor trends — could mean your customer base is more summer-event driven (bars, festivals, etc.).
 - Dunnage & Ref lines distort totals — should probably be excluded from trend visualizations unless you want to track returns separately.
 
+ ### Top Suppliers
 ```
 -- Top-selling items: Items with the top 5 highest total retail sales, For “top suppliers” in terms of revenue:
 
 SELECT supplier,
 	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales
 FROM gold_wh_sales 
-GROUP BY supplier, item_type
+GROUP BY supplier
 ORDER BY total_retail_sales DESC
 LIMIT 5;
 ```
@@ -315,3 +319,15 @@ LIMIT 5;
 "Anheuser Busch Inc"	"$   105,052.60"
 "Jim Beam Brands Co"	"$    95,899.38"
 ```
+
+#### - Current Top 5 Suppliers (Retail Sales)
+- E & J Gallo Winery – $134K
+- Diageo North America Inc – $119K
+- Constellation Brands – $108K
+- Anheuser Busch Inc – $105K
+- Jim Beam Brands Co – $96K
+
+#### Observations
+- E & J Gallo Winery leads by a small margin, but the top 4 are very close (~$105K–134K range).
+- These names map well to Wine, Spirits, and Beer. The top suppliers represent all major categories
+- Suggests balanced revenue contribution across beer, wine, and liquor, rather than one category dominating.
