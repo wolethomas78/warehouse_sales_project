@@ -3,6 +3,7 @@
 - The Warehouse and Retail Sales dataset is published by Montgomery County, Maryland and made available through ![Data.gov](https://catalog.data.gov/dataset/warehouse-and-retail-sales?utm_source=chatgpt.com)
 . It provides monthly records of product movement and sales, covering both retail stores and warehouse operations.
 - This dataset is especially useful for analyzing supply chain flows, sales performance, and inventory management at the county level.
+- The dataset will be integrated into an ETL pipeline and structured using Medallion Architecture, organizing data into Bronze (raw), Silver (cleaned), and Gold (analytics-ready) layers to ensure reliable, high-quality reporting and analysis.
 
 ![Data flow](https://github.com/wolethomas78/warehouse_sales_project/blob/b410fa532a0b9c47adcc5d13df9bfef1b56b030c/ETL_WHS.png)
 
@@ -331,3 +332,8 @@ LIMIT 5;
 - E & J Gallo Winery leads by a small margin, but the top 4 are very close (~$105K–134K range).
 - These names map well to Wine, Spirits, and Beer. The top suppliers represent all major categories
 - Suggests balanced revenue contribution across beer, wine, and liquor, rather than one category dominating.
+
+  ### Recommendations:
+- Seasonal Focus: Prioritize inventory, marketing, and promotions for summer months (Jun–Sep) when sales peak. Use Apr–May and Dec for targeted campaigns to boost low sales.
+- Item Strategy: Focus on beer for volume in summer, maintain steady wine and liquor supply year-round. Monitor returns/adjustments separately.
+- Supplier Management: Strengthen relationships with top suppliers (Gallo, Diageo, Constellation, Anheuser Busch, Jim Beam) and track which product types drive revenue.
