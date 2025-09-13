@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 		  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
 	FROM gold_wh_sales;
  ```
-	- 	Results
+### Results
  ```
 Retail Sales	Transfers	Warehouse Sales
 $2,160,899.37	$2,133,968.63	$7,781,756.28
