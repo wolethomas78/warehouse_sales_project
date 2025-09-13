@@ -150,5 +150,24 @@ $2,160,899.37	$2,133,968.63	$7,781,756.28
 - Heavy reliance on wholesale/warehouse sales — opportunity to expand direct-to-consumer retail for more diversified growth.
 - Balanced transfer volumes suggest an efficient supply chain, which can be leveraged for scaling.
 
-
-
+ ```
+	-- Average sales: Average retail sales per item type.
+SELECT TO_CHAR(AVG(retail_sales), '$9,999,999.00') AS avg_retail_sales,
+       item_type
+FROM gold_wh_sales
+GROUP BY  item_type
+ORDER BY avg_retail_sales DESC;
+ ```
+  ### Results
+ ```
+Item Type	Avg Retail Sales
+Non-Alcohol	$17.86
+Beer	$13.54
+Liquor	$12.37
+Str_Supplies	$6.77
+Ref	$5.23
+Wine	$3.98
+Kegs	$0.00
+Dunnage	$0.00
+Unknown	$0.00
+ ```
