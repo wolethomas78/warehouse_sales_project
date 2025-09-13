@@ -130,6 +130,8 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 ```
 
 ## Exploratory Analysis using POSTGRESQL :
+
+### Sales Channel Performance
 ```
 	 -- Total sales: Sum of retail sales, transfers, and warehouse sales.
 	SELECT TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
@@ -137,19 +139,19 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 		  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
 	FROM gold_wh_sales;
  ```
-### Results
+#### Results
  ```
 Retail Sales	Transfers Sales	Warehouse Sales
 $2,160,899.37	$2,133,968.63	$7,781,756.28
  ```
-### Analysis
+#### Analysis
 - Warehouse-driven revenue: At $7.78M, warehouse sales dominate overall performance.
 - Balanced secondary streams: Retail and transfers each contribute ~$2.1M, indicating steady but smaller channels.
 - Operational balance: Transfers support stock distribution effectively, keeping retail and warehouse aligned.
-### Business Impact
+#### Business Impact
 - Heavy reliance on wholesale/warehouse sales — opportunity to expand direct-to-consumer retail for more diversified growth.
 - Balanced transfer volumes suggest an efficient supply chain, which can be leveraged for scaling.
-
+	## Average Retail Sales by Item Type
  ```
 	-- Average sales: Average retail sales per item type.
 SELECT TO_CHAR(AVG(retail_sales), '$9,999,999.00') AS avg_retail_sales,
@@ -158,7 +160,7 @@ FROM gold_wh_sales
 GROUP BY  item_type
 ORDER BY avg_retail_sales DESC;
  ```
-  ### Results
+  #### Results
  ```
 Item Type	Avg Retail Sales
 Non-Alcohol	$17.86
@@ -171,3 +173,8 @@ Kegs	$0.00
 Dunnage	$0.00
 Unknown	$0.00
  ```
+### Key Takeaways
+Non-Alcohol leads with the highest average sales ($17.86 per item).
+Beer and Liquor follow as strong contributors, each above $12 average.
+Wine and Ref categories underperform (<$6 average).
+Kegs, Dunnage, Unknown show no measurable sales, possibly placeholders or underutilized categories.
