@@ -190,8 +190,8 @@ FROM gold_wh_sales
     GROUP BY year
 	ORDER BY year;
 ```
+ ### Results
  ```
-	Results
 Year	Retail Sales  Transfers Sales	  Warehouse Sales
 2017	$686,734.57	   $676,620.50 	        $2,333,849.13
 2018	$153,595.90	   $153,652.92	        $519,526.19
@@ -201,5 +201,48 @@ Year	Retail Sales  Transfers Sales	  Warehouse Sales
 ### Key Takeaways
 - 2017 → 2018 Decline: Sales dropped sharply across all channels in 2018.
 - 2019 Recovery: Strong rebound, with warehouse sales exceeding $3.5M.
-- 2020 Contraction: Noticeable dip again, likely due to external factors (e.g., market shifts, pandemic impact).
+- 2020 Contraction: Noticeable dip again, likely due to external factor.
+
+ ```
+	-- Monthly trends: Total sales per month across years to find seasonal patterns.
+SELECT month_name,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
+	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
+	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
+FROM gold_wh_sales
+    GROUP BY month_name
+	ORDER BY EXTRACT(MONTH FROM TO_DATE(month_name, 'Mon'));
+ ```
+```
+	"Jan"	"$   226,211.07"	"$   226,689.12"	"$   819,013.63"
+"Feb"	"$   157,917.67"	"$   151,672.76"	"$   513,596.20"
+"Mar"	"$   193,852.33"	"$   201,920.50"	"$   610,713.70"
+"Apr"	"$    80,342.58"	"$    83,633.90"	"$   298,840.87"
+"May"	"$    94,953.10"	"$    88,056.80"	"$   383,791.58"
+"Jun"	"$   188,217.65"	"$   180,463.73"	"$   725,977.91"
+"Jul"	"$   277,927.73"	"$   273,299.16"	"$ 1,109,919.19"
+"Aug"	"$   177,740.39"	"$   178,360.13"	"$   731,789.78"
+"Sep"	"$   254,687.49"	"$   246,880.75"	"$   988,834.16"
+"Oct"	"$   177,467.37"	"$   181,461.56"	"$   653,917.94"
+"Nov"	"$   199,947.50"	"$   200,400.71"	"$   638,404.10"
+"Dec"	"$   131,634.49"	"$   121,129.51"	"$   306,957.22"
+```
+
+ ### Observations from the data:
+- Retail sales + transfers
+- Peak in July (≈ $278K retail, $273K transfer).
+- Secondary highs in Sep (≈ $255K retail, $247K transfer).
+- Lowest in Apr & May (≈ $80–95K).
+- Stronger performance mid-year vs. early spring.
+
+#### Warehouse sales
+- Very strong in July ($1.1M) and Sep ($989K).
+- Secondary strength in Jun & Aug (≈ $726K & $732K).
+- Weakest in Apr & Dec (≈ $299K & $307K).
+
+#### Seasonality
+- Clear mid-year peak (Jun–Sep) for all sales channels.
+- Holiday season (Nov–Dec) doesn’t show the expected spike — possibly meaning the products aren’t holiday-driven.
+- Spring (Apr–May) is consistently low.
+- rs (e.g., market shifts, pandemic impact).
 - Overall Pattern: Business shows volatility year-to-year, with warehouse consistently being the largest revenue driver.
