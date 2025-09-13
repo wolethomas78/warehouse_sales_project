@@ -178,3 +178,23 @@ Unknown	$0.00
 - Beer and Liquor follow as strong contributors, each above $12 average.
 - Wine and Ref categories underperform (<$6 average).
 - Kegs, Dunnage, Unknown show no measurable sales, possibly placeholders or underutilized categories.
+
+ ### Yearly Sales Trends
+  ```
+	--Yearly trends: Total sales per year to identify growth or decline.
+SELECT year,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales,
+	  TO_CHAR(SUM(retail_transfer), '$9,999,999.00')  AS total_transfer,
+	  TO_CHAR(SUM(warehouse_sales), '$9,999,999.00') AS total_wh_sales
+FROM gold_wh_sales
+    GROUP BY year
+	ORDER BY year;
+```
+ ```
+	Results
+Year	Retail Sales	Transfers Sales	Warehouse Sales
+2017	$686,734.57	$676,620.50	$2,333,849.13
+2018	$153,595.90	$153,652.92	$519,526.19
+2019	$960,191.20	$957,562.40	$3,543,371.23
+2020	$360,377.70	$346,132.81	$1,385,009.73
+ ```
