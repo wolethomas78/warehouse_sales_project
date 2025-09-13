@@ -54,6 +54,6 @@ FROM gold_wh_sales
 SELECT supplier,
 	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales
 FROM gold_wh_sales 
-GROUP BY supplier, item_type
+GROUP BY supplier
 ORDER BY total_retail_sales DESC
 LIMIT 5;
