@@ -142,6 +142,13 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 Retail Sales	Transfers	Warehouse Sales
 $2,160,899.37	$2,133,968.63	$7,781,756.28
  ```
+### Analysis
+- Warehouse-driven revenue: At $7.78M, warehouse sales dominate overall performance.
+- Balanced secondary streams: Retail and transfers each contribute ~$2.1M, indicating steady but smaller channels.
+- Operational balance: Transfers support stock distribution effectively, keeping retail and warehouse aligned.
+### Business Impact
+- Heavy reliance on wholesale/warehouse sales — opportunity to expand direct-to-consumer retail for more diversified growth.
+- Balanced transfer volumes suggest an efficient supply chain, which can be leveraged for scaling.
 
 
 
