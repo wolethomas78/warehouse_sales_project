@@ -213,6 +213,7 @@ FROM gold_wh_sales
     GROUP BY month_name
 	ORDER BY EXTRACT(MONTH FROM TO_DATE(month_name, 'Mon'));
  ```
+ ### Results
 ```
 	"Jan"	"$   226,211.07"	"$   226,689.12"	"$   819,013.63"
 "Feb"	"$   157,917.67"	"$   151,672.76"	"$   513,596.20"
@@ -244,5 +245,4 @@ FROM gold_wh_sales
 - Clear mid-year peak (Jun–Sep) for all sales channels.
 - Holiday season (Nov–Dec) doesn’t show the expected spike — possibly meaning the products aren’t holiday-driven.
 - Spring (Apr–May) is consistently low.
-- rs (e.g., market shifts, pandemic impact).
 - Overall Pattern: Business shows volatility year-to-year, with warehouse consistently being the largest revenue driver.
