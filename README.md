@@ -306,8 +306,9 @@ GROUP BY supplier, item_type
 ORDER BY total_retail_sales DESC
 LIMIT 5;
 ```
-
-```Supplier               total_retail_sales
+ #### Outputs
+```
+  Supplier               total_retail_sales
 "E & J Gallo Winery"	"$   134,199.27"
 "Diageo North America Inc"	"$   118,800.90"
 "Constellation Brands"	"$   108,269.49"
