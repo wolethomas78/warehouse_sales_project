@@ -295,3 +295,22 @@ FROM gold_wh_sales
 - Summer peak (Jun–Sep) is consistent across Beer, Wine, and Liquor, suggesting seasonal demand (possibly linked to outdoor events, warm-weather drinking, etc.).
 - End of year (Nov–Dec) does not show a holiday bump, unlike typical retail liquor trends — could mean your customer base is more summer-event driven (bars, festivals, etc.).
 - Dunnage & Ref lines distort totals — should probably be excluded from trend visualizations unless you want to track returns separately.
+
+```
+-- Top-selling items: Items with the top 5 highest total retail sales, For “top suppliers” in terms of revenue:
+
+SELECT supplier,
+	  TO_CHAR(SUM(retail_sales), '$9,999,999.00') AS total_retail_sales
+FROM gold_wh_sales 
+GROUP BY supplier, item_type
+ORDER BY total_retail_sales DESC
+LIMIT 5;
+```
+
+```Supplier               total_retail_sales
+"E & J Gallo Winery"	"$   134,199.27"
+"Diageo North America Inc"	"$   118,800.90"
+"Constellation Brands"	"$   108,269.49"
+"Anheuser Busch Inc"	"$   105,052.60"
+"Jim Beam Brands Co"	"$    95,899.38"
+```
