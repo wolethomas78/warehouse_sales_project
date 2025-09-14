@@ -1,5 +1,7 @@
 Table of Content
 - [Overview](#overview)
+- [Data Structure](#data-structure)
+- [Bronze Layer](#bronze-layer)
 
 
 
@@ -20,10 +22,10 @@ Table of Content
 - ├── gold_analytics.sql
 - └── exploratory_analysis.sql
  ```
-  - ### Dataset Structure
+  - ### Data Structure
 Each record captures the movement of a specific item within a given month. The dataset includes the following key fields:
 
-### Column	Description
+#### Column	Description
 - ```supplier```	The supplier, vendor, or manufacturer of the product.
 - ```itemcode```	Unique identifier assigned to the product.
 - ```item_description```	Text description of the product (e.g., brand, packaging).
@@ -37,7 +39,7 @@ Each record captures the movement of a specific item within a given month. The d
 - Frequency: Updated monthly
 - Geography: Montgomery County, Maryland, USA
 
- ## Bronze Layer
+ ### Bronze Layer
 - - The Bronze code represents the raw data ingestion layer, where the Warehouse and Retail Sales dataset was ingested to ![Bronze layer](https://github.com/wolethomas78/warehouse_sales_project/blob/fbd2c6c172512009c07ecac736967c0a0ffae01c/bronze_wh_code)
  The data is first loaded in its original form to preserve data fidelity before any cleaning, transformation, or enrichment is applied.
 
