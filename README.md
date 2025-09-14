@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 ```
 
 ## Exploratory Analysis using POSTGRESQL :
-
+![Analyses codes](https://github.com/wolethomas78/warehouse_sales_project/blob/03aa8b2707fd159b6f43d5a2879d4fd4831b29f7/wh_sales_Analyses)
 ### Sales Channel Performance
 ```
 	 -- Total sales: Sum of retail sales, transfers, and warehouse sales.
