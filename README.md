@@ -8,7 +8,7 @@
 - [gold Layer](#gold-layer)
 - [Exploratory Analysis using POSTGRESQL](#exploratory-analysis-using-postgresql)
 - [Recommendations](#recommendations)
-- [Tools](#tools)
+- [Tools used](#tools-used)
 - [Contact Me](#contact-me)
 
 
