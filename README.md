@@ -2,7 +2,12 @@ Table of Content
 - [Overview](#overview)
 - [Data Structure](#data-structure)
 - [Bronze Layer](#bronze-layer)
-
+- [Silver Layer](#silver-layer)
+- [gold Layer](#gold-layer)
+- [Exploratory Analysis using POSTGRESQL](#exploratory-analysis-using-postgresql)
+- [Recommendations](#recommendations)
+- [Tools](#tools)
+- [Contact Me](#contact-me)
 
 
 ## Overview
@@ -69,7 +74,7 @@ CREATE TABLE IF NOT EXISTS bronze_wh_sales (
 );
 ```
 
- ## Silver Layer
+ ### Silver Layer
 The ![Silver code](https://github.com/wolethomas78/warehouse_sales_project/blob/4ab918409a69aa3252bf05dbed3af7c20cbc9f05/silver_wh_code) transforms raw Bronze data into a structured and cleaned format by applying validation, standardization, and enrichment rules, making the dataset ready for analytical and business use.
 ```
 -- Drop the table if it already exists to avoid conflicts when recreating
@@ -106,7 +111,7 @@ BEGIN
         start_time := clock_timestamp();
 ```
 
-## Gold Layer
+### Gold Layer
 
 The ![Gold code](https://github.com/wolethomas78/warehouse_sales_project/blob/b32f6f4e0b10de95b9fa0c9a2f9f3c7f754ff356/gold_wh_clean_data) produces curated, business-ready datasets optimized for reporting, dashboards, and advanced analytics, ensuring high performance and usability for decision-making.
 ```
@@ -137,7 +142,7 @@ CREATE TABLE IF NOT EXISTS gold_wh_sales (
 );
 ```
 
-## Exploratory Analysis using POSTGRESQL :
+### Exploratory Analysis using POSTGRESQL
 ![Analyses codes](https://github.com/wolethomas78/warehouse_sales_project/blob/03aa8b2707fd159b6f43d5a2879d4fd4831b29f7/wh_sales_Analyses)
 ### Sales Channel Performance
 ```
@@ -340,7 +345,7 @@ LIMIT 5;
 - These names map well to Wine, Spirits, and Beer. The top suppliers represent all major categories
 - Suggests balanced revenue contribution across beer, wine, and liquor, rather than one category dominating.
 
-  ### Recommendations:
+  ### Recommendations
 - Seasonal Focus: Prioritize inventory, marketing, and promotions for summer months (Jun–Sep) when sales peak. Use Apr–May and Dec for targeted campaigns to boost low sales.
 - Item Strategy: Focus on beer for volume in summer, maintain steady wine and liquor supply year-round. Monitor returns/adjustments separately.
 - Supplier Management: Strengthen relationships with top suppliers (Gallo, Diageo, Constellation, Anheuser Busch, Jim Beam) and track which product types drive revenue.
