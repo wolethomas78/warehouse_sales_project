@@ -352,7 +352,7 @@ LIMIT 5;
 - Item Strategy: Focus on beer for volume in summer, maintain steady wine and liquor supply year-round. Monitor returns/adjustments separately.
 - Supplier Management: Strengthen relationships with top suppliers (Gallo, Diageo, Constellation, Anheuser Busch, Jim Beam) and track which product types drive revenue.
 
-- ### Tools
+- ### Tools used
 - - Postgresql: For cleaning and Query
   - Github: For documentation
   - Draw I.O: To design simple data flow in Medallion Architecture
