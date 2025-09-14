@@ -1,4 +1,4 @@
-## ETL Pipeline Project using a warehouse sales dataset from Data.gov with over 300k rows.
+## ETL Pipeline Project using a warehouse and Retail sales dataset from Data.gov with over 300k rows.
 
  ### Table of Content
 - [Overview](#overview)
