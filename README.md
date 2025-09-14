@@ -1,5 +1,5 @@
-
-  Table of Content
+## ETL Pipelin Project using a warehouse sales dataset from Data.gov with over 300k rows.
+ ### Table of Content
 - [Overview](#overview)
 - [Data Structure](#data-structure)
 - [Bronze Layer](#bronze-layer)
