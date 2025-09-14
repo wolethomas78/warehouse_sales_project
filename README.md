@@ -353,9 +353,9 @@ LIMIT 5;
 - Supplier Management: Strengthen relationships with top suppliers (Gallo, Diageo, Constellation, Anheuser Busch, Jim Beam) and track which product types drive revenue.
 
 - ### Tools
-- - Postgresql
-  - Github
-  - Draw I.O
+- - Postgresql: For cleaning and Query
+  - Github: For documentation
+  - Draw I.O: To design simple data flow in Medallion Architecture
 
 ### Contact Me
 - Connect with me on LinkedIn: [LinkedIn](https://www.linkedin.com/in/oluwolefagbemi)
